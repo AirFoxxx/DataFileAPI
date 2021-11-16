@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -33,6 +34,7 @@ namespace WebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
             services.AddScoped<IDataRepository, SQLDataRepository>();
+            services.AddDbContext<DataFileContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
