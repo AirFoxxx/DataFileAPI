@@ -36,9 +36,9 @@ namespace WebAPI.Data
             return _context.DataFiles.FirstOrDefault(obj => obj.Id == id);
         }
 
-        public async Task<DataFile> GetFileByNameAsync()
+        public IEnumerable<DataFile> GetFilesByExtension(string extension)
         {
-            throw new NotImplementedException();
+            return _context.DataFiles.Where(obj => obj.Extension.ToLower() == extension.ToLower()).ToList();
         }
 
         public async Task SaveChangesAsync()

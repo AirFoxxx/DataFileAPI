@@ -41,6 +41,18 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// Gets the data files by extension.
+        /// </summary>
+        /// <param name="extension">The extension.</param>
+        /// <returns>Ok if succes</returns>
+        [HttpGet("extensions/{extension}", Name = "GetDataFilesByExtension")]
+        public IActionResult GetDataFilesByExtension(string extension)
+        {
+            var filteredFiles = _repository.GetFilesByExtension(extension);
+            return Ok(filteredFiles);
+        }
+
+        /// <summary>
         /// Gets all files.
         /// </summary>
         /// <returns>Ok if succes.</returns>

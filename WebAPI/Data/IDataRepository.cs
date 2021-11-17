@@ -21,7 +21,7 @@ namespace WebAPI.Data
         /// Gets the file by name asynchronous.
         /// </summary>
         /// <returns>The found file.</returns>
-        public Task<DataFile> GetFileByNameAsync();
+        public IEnumerable<DataFile> GetFilesByExtension(string extension);
 
         /// <summary>
         /// Gets the file by identifier.
