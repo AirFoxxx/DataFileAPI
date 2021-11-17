@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Data;
+using WebAPI.Dtos;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -30,11 +31,19 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFileAsync(DataFile file)
+        public async Task<IActionResult> AddFileAsync(ReadDataFileDto file)
         {
-            var returnedFile = await _repository.AddFileAsync(file);
+            var fileToSave = _mapper.Map<DataFile>(file);
 
-            return CreatedAtRoute(nameof(returnedFile), new { Id = returnedFile.Id }, returnedFile);
+            var returnedFile = await _repository.AddFileAsync(fileToSave);
+            await _repository.SaveChangesAsync();
+
+            if (returnedFile != null)
+            {
+                return CreatedAtRoute(nameof(returnedFile), new { Id = returnedFile.Id }, returnedFile);
+            }
+
+            return NotFound();
         }
     }
 }

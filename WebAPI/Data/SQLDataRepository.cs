@@ -21,24 +21,24 @@ namespace WebAPI.Data
             return obj.Entity;
         }
 
-        public Task<bool> DeleteFileAsync(int id)
+        public async Task<bool> DeleteFileAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<DataFile>> GetAllFilesAsync()
+        public async Task<IEnumerable<DataFile>> GetAllFilesAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<DataFile> GetFileByNameAsync()
+        public async Task<DataFile> GetFileByNameAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }

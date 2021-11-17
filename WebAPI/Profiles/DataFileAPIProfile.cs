@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Dtos;
 using WebAPI.Models;
@@ -12,7 +13,10 @@ namespace WebAPI.Profiles
     {
         public DataFileAPIProfile()
         {
-            CreateMap<DataFile, ReadDataFileDto>();
+            CreateMap<ReadDataFileDto, DataFile>()
+                .ForMember(dest =>
+                dest.Data,
+                opt => opt.MapFrom(src => Encoding.ASCII.GetBytes(src.Data)));
         }
     }
 }
