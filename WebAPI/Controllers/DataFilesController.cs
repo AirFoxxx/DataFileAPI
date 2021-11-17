@@ -25,5 +25,13 @@ namespace WebAPI.Controllers
             var allFiles = await _repository.GetAllFilesAsync();
             return Ok(allFiles);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFileAsync(DataFile file)
+        {
+            var returnedFile = await _repository.AddFileAsync(file);
+
+            return CreatedAtRoute(nameof(returnedFile), new { Id = returnedFile.Id }, returnedFile);
+        }
     }
 }

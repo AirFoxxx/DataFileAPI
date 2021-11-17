@@ -28,7 +28,7 @@ namespace WebAPI.Data
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns>True if file was added, if file exists already, then false.</returns>
-        public Task<bool> AddFileAsync(DataFile file);
+        public Task<DataFile> AddFileAsync(DataFile file);
 
         /// <summary>
         /// Deletes the file asynchronous.

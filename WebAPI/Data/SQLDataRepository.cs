@@ -8,9 +8,17 @@ namespace WebAPI.Data
 {
     public class SQLDataRepository : IDataRepository
     {
-        public Task<bool> AddFileAsync(DataFile file)
+        private readonly DataFileContext _context;
+
+        public SQLDataRepository(DataFileContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task<DataFile> AddFileAsync(DataFile file)
+        {
+            var obj = await _context.DataFiles.AddAsync(file);
+            return obj.Entity;
         }
 
         public Task<bool> DeleteFileAsync(int id)
