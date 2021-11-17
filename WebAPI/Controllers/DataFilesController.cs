@@ -35,9 +35,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllFilesAsync()
+        public IActionResult GetAllFilesAsync()
         {
-            var allFiles = await _repository.GetAllFilesAsync();
+            var allFiles = _repository.GetAllFiles();
             return Ok(allFiles);
         }
 

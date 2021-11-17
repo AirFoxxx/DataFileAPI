@@ -26,9 +26,9 @@ namespace WebAPI.Data
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<DataFile>> GetAllFilesAsync()
+        public IEnumerable<DataFile> GetAllFiles()
         {
-            throw new NotImplementedException();
+            return _context.DataFiles.ToList();
         }
 
         public DataFile GetFileById(int id)

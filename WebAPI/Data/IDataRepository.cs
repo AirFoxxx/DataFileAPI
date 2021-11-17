@@ -15,7 +15,7 @@ namespace WebAPI.Data
         /// Gets all files asynchronous.
         /// </summary>
         /// <returns>All files.</returns>
-        public Task<IEnumerable<DataFile>> GetAllFilesAsync();
+        public IEnumerable<DataFile> GetAllFiles();
 
         /// <summary>
         /// Gets the file by name asynchronous.
