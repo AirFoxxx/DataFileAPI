@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace WebAPI.Controllers
     public class DataFilesController : ControllerBase
     {
         private readonly IDataRepository _repository;
+        private readonly IMapper _mapper;
 
-        public DataFilesController(IDataRepository repository)
+        public DataFilesController(IDataRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]

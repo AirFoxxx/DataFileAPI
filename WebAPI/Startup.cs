@@ -35,6 +35,7 @@ namespace WebAPI
             });
             services.AddScoped<IDataRepository, SQLDataRepository>();
             services.AddDbContext<DataFileContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
