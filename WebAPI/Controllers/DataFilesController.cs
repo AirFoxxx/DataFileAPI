@@ -23,6 +23,17 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("{id}", Name = "GetDataFileById")]
+        public IActionResult GetDataFileById(int id)
+        {
+            var foundFile = _repository.GetFileById(id);
+            if (foundFile != null)
+            {
+                return Ok(_mapper.Map<SendFullDataFileDto>(foundFile));
+            }
+            return NotFound();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllFilesAsync()
         {
@@ -35,12 +46,13 @@ namespace WebAPI.Controllers
         {
             var fileToSave = _mapper.Map<DataFile>(file);
 
-            var returnedFile = await _repository.AddFileAsync(fileToSave);
+            var savedFile = await _repository.AddFileAsync(fileToSave);
             await _repository.SaveChangesAsync();
 
-            if (returnedFile != null)
+            if (savedFile != null)
             {
-                return CreatedAtRoute(nameof(returnedFile), new { Id = returnedFile.Id }, returnedFile);
+                var returnedFile = _mapper.Map<SendDataFileDto>(savedFile);
+                return CreatedAtRoute(nameof(GetDataFileById), new { Id = returnedFile.Id }, returnedFile);
             }
 
             return NotFound();

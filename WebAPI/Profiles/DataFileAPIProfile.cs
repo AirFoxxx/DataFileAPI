@@ -17,6 +17,13 @@ namespace WebAPI.Profiles
                 .ForMember(dest =>
                 dest.Data,
                 opt => opt.MapFrom(src => Encoding.ASCII.GetBytes(src.Data)));
+
+            CreateMap<DataFile, SendDataFileDto>();
+
+            CreateMap<DataFile, SendFullDataFileDto>()
+                .ForMember(dest =>
+                dest.Data,
+                opt => opt.MapFrom(src => Encoding.ASCII.GetString(src.Data)));
         }
     }
 }

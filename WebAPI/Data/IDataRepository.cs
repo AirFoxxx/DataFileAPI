@@ -24,6 +24,13 @@ namespace WebAPI.Data
         public Task<DataFile> GetFileByNameAsync();
 
         /// <summary>
+        /// Gets the file by identifier.
+        /// </summary>
+        /// /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public DataFile GetFileById(int id);
+
+        /// <summary>
         /// Adds the file asynchronous.
         /// </summary>
         /// <param name="file">The file.</param>

@@ -31,6 +31,11 @@ namespace WebAPI.Data
             throw new NotImplementedException();
         }
 
+        public DataFile GetFileById(int id)
+        {
+            return _context.DataFiles.FirstOrDefault(obj => obj.Id == id);
+        }
+
         public async Task<DataFile> GetFileByNameAsync()
         {
             throw new NotImplementedException();
