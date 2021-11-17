@@ -12,6 +12,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class DataFilesController : ControllerBase
     {
         private readonly IDataRepository _repository;
@@ -23,6 +24,11 @@ namespace WebAPI.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the dataFile by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Ok if succes, oterwise not found.</returns>
         [HttpGet("{id}", Name = "GetDataFileById")]
         public IActionResult GetDataFileById(int id)
         {
@@ -34,13 +40,22 @@ namespace WebAPI.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Gets all files.
+        /// </summary>
+        /// <returns>Ok if succes.</returns>
         [HttpGet]
-        public IActionResult GetAllFilesAsync()
+        public IActionResult GetAllFiles()
         {
             var allFiles = _repository.GetAllFiles();
             return Ok(allFiles);
         }
 
+        /// <summary>
+        /// Adds the specified file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>Created(Resource_without_data) if success, otherwise not Found.</returns>
         [HttpPost]
         public async Task<IActionResult> AddFileAsync(ReadDataFileDto file)
         {
