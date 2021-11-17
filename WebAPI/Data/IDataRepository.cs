@@ -21,7 +21,7 @@ namespace WebAPI.Data
         /// Gets the file by name asynchronous.
         /// </summary>
         /// <returns>The found file.</returns>
-        public Task<DataFile> GetFileByNameAsync();
+        public IEnumerable<DataFile> GetFilesByExtension(string extension);
 
         /// <summary>
         /// Gets the file by identifier.
@@ -38,16 +38,22 @@ namespace WebAPI.Data
         public Task<DataFile> AddFileAsync(DataFile file);
 
         /// <summary>
-        /// Deletes the file asynchronous.
+        /// Deletes the file.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>True if successfully deleted, false if not found.</returns>
-        public Task<bool> DeleteFileAsync(int id);
+        public bool DeleteFile(int id);
 
         /// <summary>
         /// Saves the changes asynchronous.
         /// </summary>
         /// <returns></returns>
         public Task SaveChangesAsync();
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <returns></returns>
+        public void SaveChanges();
     }
 }
