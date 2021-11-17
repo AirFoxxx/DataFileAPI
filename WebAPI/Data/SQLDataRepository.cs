@@ -24,9 +24,15 @@ namespace WebAPI.Data
         }
 
         /// <inheritdoc />
-        public async Task<bool> DeleteFileAsync(int id)
+        public bool DeleteFile(int id)
         {
-            throw new NotImplementedException();
+            var returnedFile = _context.DataFiles.FirstOrDefault(item => item.Id == id);
+            if (returnedFile != null)
+            {
+                _context.DataFiles.Remove(returnedFile);
+                return true;
+            }
+            return false;
         }
 
         /// <inheritdoc />
@@ -48,6 +54,12 @@ namespace WebAPI.Data
                 .Where(obj => obj.Extension.ToLower()
                 .Replace(".", string.Empty) == extension.ToLower()
                 .Replace(".", string.Empty)).ToList();
+        }
+
+        /// <inheritdoc />
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         /// <inheritdoc />
