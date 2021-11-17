@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using System.IO;
 
 namespace WebAPI
 {
@@ -29,12 +31,22 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "FileAPI",
+                    Version = "v1",
+                    Description = "An ASP.NET Core Web API for managing Files sent in as explicit byte array through a string.",
+                });
+
+                // Using XML comments
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
             services.AddScoped<IDataRepository, SQLDataRepository>();
             services.AddDbContext<DataFileContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

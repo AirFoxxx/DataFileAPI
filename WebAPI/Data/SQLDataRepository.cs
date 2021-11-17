@@ -8,29 +8,42 @@ namespace WebAPI.Data
 {
     public class SQLDataRepository : IDataRepository
     {
-        public Task<bool> AddFileAsync(DataFile file)
+        private readonly DataFileContext _context;
+
+        public SQLDataRepository(DataFileContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<DataFile> AddFileAsync(DataFile file)
+        {
+            var obj = await _context.DataFiles.AddAsync(file);
+            return obj.Entity;
+        }
+
+        public async Task<bool> DeleteFileAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteFileAsync(int id)
+        public IEnumerable<DataFile> GetAllFiles()
+        {
+            return _context.DataFiles.ToList();
+        }
+
+        public DataFile GetFileById(int id)
+        {
+            return _context.DataFiles.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public async Task<DataFile> GetFileByNameAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<DataFile>> GetAllFilesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<DataFile> GetFileByNameAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
     }
 }
